@@ -1,0 +1,19 @@
+{ 
+  "description": "This NFT proves I've created and deployed my first ERC721 smart contract on Rinkeby for Alchemy Road to Web3 Challenge",
+  "external_url": "Alchemy.com",
+  "image": "https://ipfs.filebase.io/ipfs/QmQGwqgm4xDz2gWAyAZy7DcwHEWwAHYYCfmoLqWtjNoUj8",
+  "name": "A cool bee NFT", 
+  "attributes": [
+    {
+      "trait_type": "Base", 
+      "value": "Starfish"
+    }, 
+    {
+      "trait_type": "Eyes", 
+      "value": "Big"
+    }, 
+    {
+      "trait_type": "Mouth", 
+      "value": "Surprised"
+    }
+  }
