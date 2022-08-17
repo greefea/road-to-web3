@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
+import "forge-std/console2.sol";
 import "../src/ChainBattles.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
@@ -16,15 +17,16 @@ contract ChainBattlesTest is Test, ERC721Holder {
 
     function testMint() public {
         uint256 _tokenId = chainBattlesContract.mint();
-        assertTrue(chainBattlesContract.tokenIdToLevels(_tokenId) == 0);
+        assertEq(chainBattlesContract.getLevel(_tokenId), "0");
         assertEq(chainBattlesContract.ownerOf(_tokenId), address(this));
     }
 
     function testTrain() public {
+        assertEq(chainBattlesContract.getLevel(myTokenId), "0");
         chainBattlesContract.train(myTokenId);
-        assertTrue(chainBattlesContract.tokenIdToLevels(myTokenId) == 1);
+        assertEq(chainBattlesContract.getLevel(myTokenId), "1");
         chainBattlesContract.train(myTokenId);
-        assertTrue(chainBattlesContract.tokenIdToLevels(myTokenId) == 2);
+        assertEq(chainBattlesContract.getLevel(myTokenId), "2");
     }
 
     function testTrainRevert(uint256 _tokenId) public {
@@ -37,5 +39,10 @@ contract ChainBattlesTest is Test, ERC721Holder {
     function testFailTrainNotOwner() public {
         vm.prank(address(0));
         chainBattlesContract.train(myTokenId);
+    }
+
+    function testGenerateCharacter() public view {
+        string memory svg = chainBattlesContract.generateCharacter(myTokenId);
+        console.logString(svg);
     }
 }
