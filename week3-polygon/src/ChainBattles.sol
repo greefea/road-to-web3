@@ -12,13 +12,13 @@ contract ChainBattles is ERC721URIStorage {
     using Strings for uint8;
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    struct Stats {
+    struct Traits {
         uint8 Level;
         uint8 Speed;
         uint8 Strength;
         uint8 Life;
     }
-    mapping(uint256 => Stats) public tokenIdToLevels;
+    mapping(uint256 => Traits) public tokenIdToLevels;
 
     constructor() ERC721("Chain Battles", "CBTLS") {}
 
@@ -97,7 +97,7 @@ contract ChainBattles is ERC721URIStorage {
         uint256 newItemId = _tokenIds.current();
         _safeMint(msg.sender, newItemId);
         uint8 maxInit = 32;
-        tokenIdToLevels[newItemId] = Stats(
+        tokenIdToLevels[newItemId] = Traits(
             0,
             random(maxInit, "speed"),
             random(maxInit, "strength"),
@@ -115,12 +115,12 @@ contract ChainBattles is ERC721URIStorage {
             "Only token owner can call train"
         );
         uint8 maxInc = 4;
-        Stats memory stats = tokenIdToLevels[_tokenId];
-        tokenIdToLevels[_tokenId] = Stats(
-            stats.Level + 1,
-            stats.Speed + random(maxInc, "speed"),
-            stats.Strength + random(maxInc, "strength"),
-            stats.Life + random(maxInc, "life")
+        Traits memory traits = tokenIdToLevels[_tokenId];
+        tokenIdToLevels[_tokenId] = Traits(
+            traits.Level + 1,
+            traits.Speed + random(maxInc, "speed"),
+            traits.Strength + random(maxInc, "strength"),
+            traits.Life + random(maxInc, "life")
         );
     }
 
